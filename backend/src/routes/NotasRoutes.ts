@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { create } from "../controllers/CategoryController";
+import { create, list } from "../controllers/NotaController";
+import { validatorCreateNote } from "../helpers/Validator";
 
 
 const router = Router()
 
-router.post('/create',create)
+router.post('/create', validatorCreateNote, create)
+router.get('/list', list)
 
 export default router

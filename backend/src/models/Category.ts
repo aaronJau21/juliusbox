@@ -13,4 +13,4 @@ const CategorySchema = new Schema<CategoriesInterfaces>(
     }
 )
 
-export default model('Caterory', CategorySchema, 'categories')
+export default model('Category', CategorySchema, 'categories')

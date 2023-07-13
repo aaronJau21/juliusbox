@@ -24,3 +24,8 @@ export const ValidatorUpdateProduct = [
     body('title', 'Titulo muy corto').trim().isLength({ min: 10 }),
     RequestError
 ]
+
+export const validatorCreateNote = [
+    body('nota', 'Esta vacio').notEmpty(),
+    RequestError
+]
