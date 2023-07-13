@@ -23,8 +23,8 @@ const closeModal = () => {
 
 const getCategory = async () => {
     const { data } = await http.get('/category/list')
-    console.log(data.category)
-    categories.value = data.category
+    console.log(data)
+    categories.value = data.categories
 }
 onMounted(() => {
     getCategory();

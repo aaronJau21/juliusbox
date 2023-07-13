@@ -1,40 +1,39 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import http from '../../../../services/http';
+import http from '../../../services/http';
 
-const title = reactive({
-    title: ''
-})
+const note = reactive({
+    nota: ''
+});
 
 const props = defineProps({
     isOpen: {
         type: Boolean,
     },
     closeModal: {
-        type: Function
-    }
-})
+        type: Function,
+    },
+});
 
-const addCategory = async () => {
-    const { data } = await http.post('/category/create', title)
-    console.log(data)
-}
-
+const addNotes = async () => {
+    const { data } = await http.post('/notas/create', note);
+    console.log(data);
+};
 </script>
 
 <template>
-    <div class="modal" v-if="props.isOpen" @submit.prevent="addCategory">
+    <div class="modal" v-if="props.isOpen" @submit.prevent="addNotes">
         <div class="modal-content">
             <h1 class="text-center py-5 text-3xl">Add Category</h1>
             <form action="">
                 <div class="p-5 bg-slate-300 rounded-md">
-                    <label for="title" class="block text-center">Tile</label>
-                    <input type="text" placeholder="Title" id="title" class="px-3 rounded-md" v-model="title.title">
+                    <label for="title" class="block text-center">Title</label>
+                    <textarea v-model="note.nota"></textarea>
                 </div>
 
                 <div class="mt-3 flex justify-between">
                     <button type="submit" class="bg-green-400 px-3 py-1 rounded-md">Save</button>
-                    <button @click="props.closeModal" class="bg-red-400 px-3 py-1 rounded-md">close</button>
+                    <button @click="props.closeModal" class="bg-red-400 px-3 py-1 rounded-md">Close</button>
                 </div>
             </form>
         </div>
