@@ -12,7 +12,7 @@ export interface LinksInterfaces {
     name: string,
     url: string,
     description: string,
-    ref:any
+    category:any
 }
 
 export interface NotasInterfaces {

@@ -13,9 +13,9 @@ const LinkSchema = new Schema<LinksInterfaces>(
             type: String,
             required: true
         },
-        ref: {
+        category: {
             type: Schema.ObjectId,
-            ref: 'Category'
+            required: true
         }
     },
     {

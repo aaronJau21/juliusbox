@@ -7,10 +7,10 @@ const title = reactive({
 })
 
 const props = defineProps({
-    isOpen: {
+    isOpenCategory: {
         type: Boolean,
     },
-    closeModal: {
+    closeModalCategory: {
         type: Function
     }
 })
@@ -23,7 +23,7 @@ const addCategory = async () => {
 </script>
 
 <template>
-    <div class="modal" v-if="props.isOpen" @submit.prevent="addCategory">
+    <div class="modal" v-if="props.isOpenCategory" @submit.prevent="addCategory">
         <div class="modal-content">
             <h1 class="text-center py-5 text-3xl">Add Category</h1>
             <form action="">
@@ -34,7 +34,7 @@ const addCategory = async () => {
 
                 <div class="mt-3 flex justify-between">
                     <button type="submit" class="bg-green-400 px-3 py-1 rounded-md">Save</button>
-                    <button @click="props.closeModal" class="bg-red-400 px-3 py-1 rounded-md">close</button>
+                    <button @click="props.closeModalCategory" class="bg-red-400 px-3 py-1 rounded-md">close</button>
                 </div>
             </form>
         </div>
