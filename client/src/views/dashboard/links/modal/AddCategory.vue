@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import http from '../../../../services/http';
+
 
 const title = reactive({
     title: ''
@@ -12,20 +12,17 @@ const props = defineProps({
     },
     closeModalCategory: {
         type: Function
+    },
+    addCategory:{
+        type: Function
     }
 })
 
-const addCategory = async () => {
-    const { data } = await http.post('/category/create', title)
-    console.log(data)
-    title.title = ''
-    props.closeModalCategory!()
-}
 
 </script>
 
 <template>
-    <div class="modal" v-if="props.isOpenCategory" @submit.prevent="addCategory">
+    <div class="modal" v-if="props.isOpenCategory" @submit.prevent="props.addCategory!(title)">
         <div class="modal-content">
             <h1 class="text-center py-5 text-3xl">Add Category</h1>
             <form action="">
