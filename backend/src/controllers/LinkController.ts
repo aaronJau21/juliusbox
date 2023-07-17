@@ -18,12 +18,11 @@ export const create = async (req: Request, res: Response) => {
     });
 }
 
-export const list = async (req: Request, res: Response) => {
+export const list = async (_req: Request, res: Response) => {
 
     try {
-        const id = req.params.id
 
-        const links = await Link.find({category:id})
+        const links = await Link.find()
 
         return res.send({
             msg: 'list',

@@ -9,7 +9,7 @@ interface Links {
     name: string,
     url: string,
     description: string,
-    category: any
+    category: string
 }
 
 import { onMounted, ref } from 'vue';
@@ -59,16 +59,19 @@ const getCategory = async () => {
 };
 
 const getLinks = async () => {
-    const { data } = await http.get('/link/list/64b4ba68e520a59766e31a71');
+    const { data } = await http.get(`/link/list`);
     console.log(data)
     links.value = data.links
 }
 
-getLinks()
+const filteredLinks = (categoryId: string) => {
+    return links.value.filter((link: Links) => link.category == categoryId);
+};
 
 // OnMounteds
 onMounted(() => {
     getCategory();
+    getLinks();
 });
 
 </script>
@@ -95,8 +98,8 @@ onMounted(() => {
                     <AddLinks :isOpenLink="isOpenLink" :closeModalLink="closeModalLink" :id="selectedCategoryId" />
                 </div>
                 <div class="mt-3">
-                    <ul class="flex flex-col gap-y-3" >
-                        <li v-for="link in links" :key="link._id">{{ link.name }}</li>
+                    <ul class="flex flex-col gap-y-3" v-for="link in filteredLinks(category._id)" :key="link._id">
+                        <li>{{ link.name }}</li>
                     </ul>
                 </div>
             </div>
