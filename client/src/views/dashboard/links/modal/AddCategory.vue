@@ -18,6 +18,8 @@ const props = defineProps({
 const addCategory = async () => {
     const { data } = await http.post('/category/create', title)
     console.log(data)
+    title.title = ''
+    props.closeModalCategory!()
 }
 
 </script>

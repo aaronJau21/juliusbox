@@ -8,7 +8,7 @@ export const create = async (req: Request, res: Response) => {
 
     const category = await Category.findOne({ _id: id });
 
-    const link = new Link({ name, url, description, category:id })
+    const link = new Link({ name, url, description, category: id })
     await link.save()
 
     return res.send({
@@ -18,4 +18,20 @@ export const create = async (req: Request, res: Response) => {
     });
 }
 
-export const list = async(_req: Request, _res: Response)=>{}
+export const list = async (req: Request, res: Response) => {
+
+    try {
+        const id = req.params.id
+
+        const links = await Link.find({category:id})
+
+        return res.send({
+            msg: 'list',
+            links
+        })
+    } catch (error) {
+        return res.status(400).send({
+            msg: 'No existe la Categoria'
+        })
+    }
+}
