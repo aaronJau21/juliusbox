@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import http from '../../../../services/http';
 
 
 const links = reactive({
@@ -17,39 +16,34 @@ const props = defineProps({
     },
     id:{
         type:String
+    },
+    addLinks:{
+        type: Function
     }
 })
 
 console.log(props.id)
-const addLinks = async (id: string | undefined) => {
-    try {
-        const url = `/link/create/${id}`;
-        const { data } = await http.post(url, links);
-        console.log(data)
-    } catch (error) {
-        // Maneja el error de alguna manera, como mostrando un mensaje de error al usuario
-        console.error(error);
-    }
-}
+
 </script>
 
 <template>
     <div class="modal" v-if="props.isOpenLink">
         <div class="modal-content">
             <h1 class="text-center py-5 text-3xl">Add Links</h1>
-            <form @submit.prevent="addLinks(props.id)">
+            <form @submit.prevent="addLinks!(props.id,links)">
                 <div class="p-5 bg-slate-300 rounded-md my-3">
                     <label for="title" class="block text-center">Name:</label>
-                    <input type="text" placeholder="Name" id="title" class="px-3 rounded-md" v-model="links.name">
+                    <input type="text" placeholder="Name" id="title" class="px-3 rounded-md w-full" v-model="links.name">
                 </div>
                 <div class="p-5 bg-slate-300 rounded-md my-3">
                     <label for="title" class="block text-center">URL:</label>
-                    <input type="text" placeholder="URL" id="title" class="px-3 rounded-md" v-model="links.url">
+                    <input type="text" placeholder="URL" id="title" class="px-3 rounded-md w-full" v-model="links.url">
                 </div>
                 <div class="p-5 bg-slate-300 rounded-md my-3">
                     <label for="title" class="block text-center">Description:</label>
-                    <input type="text" placeholder="Description" id="title" class="px-3 rounded-md"
-                        v-model="links.description">
+                    <!-- <input type="text" placeholder="Description" id="title" class="px-3 rounded-md"
+                        v-model="links.description"> -->
+                        <textarea name="title" id="tile" class="w-96" v-model="links.description"></textarea>
                 </div>
 
                 <div class="mt-3 flex justify-between">

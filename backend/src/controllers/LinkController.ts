@@ -34,3 +34,21 @@ export const list = async (_req: Request, res: Response) => {
         })
     }
 }
+
+export const show = async (req: Request, res: Response) => {
+
+    try {
+        const id = req.params.id
+
+        const link = await Link.findById(id)
+
+        return res.send({
+            msg: 'show',
+            link
+        })
+    } catch (error) {
+        return res.status(400).send({
+            msg: 'No hay link'
+        })
+    }
+}

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import http from '../../../services/http';
 
 const note = reactive({
     nota: ''
@@ -13,22 +12,20 @@ const props = defineProps({
     closeModal: {
         type: Function,
     },
+    addNotes:{
+        type: Function,
+    }
 });
-
-const addNotes = async () => {
-    const { data } = await http.post('/notas/create', note);
-    console.log(data);
-};
 </script>
 
 <template>
-    <div class="modal" v-if="props.isOpen" @submit.prevent="addNotes">
+    <div class="modal" v-if="props.isOpen" @submit.prevent="props.addNotes!(note)">
         <div class="modal-content">
             <h1 class="text-center py-5 text-3xl">Add Category</h1>
             <form action="">
                 <div class="p-5 bg-slate-300 rounded-md">
-                    <label for="title" class="block text-center">Title</label>
-                    <textarea v-model="note.nota"></textarea>
+                    <label for="title" class="block text-center">Note</label>
+                    <textarea v-model="note.nota" class="w-96"></textarea>
                 </div>
 
                 <div class="mt-3 flex justify-between">

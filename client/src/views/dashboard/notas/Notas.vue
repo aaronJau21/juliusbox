@@ -27,6 +27,13 @@ const getNotes = async () => {
     notes.value = data.notes
 }
 
+const addNotes = async (note:Note) => {
+    const { data } = await http.post('/notas/create', note);
+    console.log(data);
+    notes.value.push(data.note)
+    closeModal()
+};
+
 onMounted(() => {
     getNotes()
 })
@@ -37,10 +44,10 @@ onMounted(() => {
         <div class="pb-9 flex justify-end">
             <ButtonsComponents name="Add Notes" @click="openModal" />
         </div>
-        <AddNote :isOpen="isOpen" :closeModal="closeModal" />
+        <AddNote :addNotes="addNotes" :isOpen="isOpen" :closeModal="closeModal" />
         <div class="grid grid-cols-3 ">
             <div v-for="note in notes"  :key="note._id">
-                <textarea class="w-96 h-96 rounded-md">{{ note.nota }}</textarea>
+                <textarea class="w-96 h-96 rounded-md p-5">{{ note.nota }}</textarea>
             </div>
         </div>
     </DashboardTemplate>
